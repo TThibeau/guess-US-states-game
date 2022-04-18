@@ -14,7 +14,7 @@ guessed_states = []
 
 df = pandas.read_csv("50_states.csv")
 states_list = df.state.to_list()
-to_learn_list = states_list
+to_learn_list = []
 
 while score<50:
 
@@ -22,9 +22,8 @@ while score<50:
     user_input = " ".join(s.capitalize() for s in user_input.split())
 
     if user_input == "Exit":
-        for i in guessed_states:
-            to_learn_list.remove(i)
-
+        to_learn_list = [state for state in states_list if state not in guessed_states]
+        
         new_df = pandas.DataFrame(to_learn_list)
         
         new_df.to_csv("states_to_learn.csv")
